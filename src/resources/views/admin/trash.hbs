@@ -1,0 +1,172 @@
+<h2>Employees Deleted</h2>
+{{!-- Table show employees --}}
+<form method="POST" action="/manage/handleFormActions">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    <div class="form-check form-control-sm">
+                        <input class="form-check-input" type="checkbox" id="checkbox-all">
+                    </div>
+                </th>
+                <th>
+                    ID
+                    <i class="fa-solid fa-circle-sort"></i>
+                    {{{sortable '_id' _sort}}}
+                </th>
+                <th>
+                    Name
+                    <i class="fa-solid fa-circle-sort"></i>
+                    {{{sortable 'name' _sort}}}
+                </th>
+                <th>
+                    Identity Card
+                    <i class="fa-solid fa-circle-sort"></i>
+                    {{{sortable 'identityCard' _sort}}}
+                </th>
+                <th>
+                    Birth
+                    <i class="fa-solid fa-circle-sort"></i>
+                    {{{sortable 'birth' _sort}}}
+                </th>
+                <th>
+                    Salary
+                    <i class="fa-solid fa-circle-sort"></i>
+                    {{{sortable 'salary' _sort}}}
+                </th>
+                <th class="actions">Actions</th>
+            </tr>
+        </thead>
+        <div class="form-action-container">
+            <label for="action">Action:</label>
+            <select id="action" name="action" required>
+                <option value="restore">Restore</option>
+                <option value="forceDelete">Force Delete</option>
+            </select>
+            <button type="submit"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   class="btn btn-primary btn-sm btn-submit-all-checked disabled">Submit</button>
+        </div>
+        <tbody>
+            {{#each employees}}
+            <tr>
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{this._id}}" name="employeeIds[]">
+                    </div>
+                </td>
+                <td>{{this._id}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.identityCard}}</td>
+                <td>{{this.birth}}</td>
+                <td>${{this.salary}}</td>
+                <td class="actions">
+                    <div>
+                        <a href="" class="update-btn" data-id="{{this._id}}">Restore</a>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#delete-modal" data-id="{{this._id}}"
+                            class="delete-btn">Force Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">You haven't deleted any employees yet! <a
+                        href="/manage/create">Create
+                        Now</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</form>
+
+
+{{!-- confirm delete --}}
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete this employee?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this employee?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Back</button>
+                <button id="force-delete-btn" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- restore form --}}
+<form name="restore-employee-form" method="POST"></form>
+
+{{!-- delete form --}}
+<form name="delete-employee-form" method="POST"></form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+        var employeeID
+        var btnDeleteEmployee = document.getElementById('force-delete-btn')
+        var deleteForm = document.forms['delete-employee-form']
+        var restoreForm = document.forms['restore-employee-form']
+        var btnRestore = $('.update-btn')
+        var employeeCheckedAll = $('#checkbox-all')
+        var employeeCheckedItems = $('input[name="employeeIds[]"]')
+        var btnSubmitAllChecked = $('.btn-submit-all-checked')
+
+
+
+        $('#delete-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            employeeID = button.data('id')
+        })
+
+
+        btnDeleteEmployee.onclick = function (e) {
+            console.log(this)
+            console.log(employeeID)
+            deleteForm.action = '/manage/' + employeeID + '/forceDelete?_method=DELETE'
+            deleteForm.submit()
+        }
+
+        btnRestore.click(function (e) {
+            e.preventDefault()
+            const employeeID = $(this).data('id')
+            restoreForm.action = '/manage/' + employeeID + '/restore?_method=PATCH'
+            restoreForm.submit()
+        })
+
+        employeeCheckedAll.change(function () {
+            var isCheckedAll = $(this).prop('checked')
+            employeeCheckedItems.prop('checked', isCheckedAll)
+            renderBtnSubmitAllCheked()
+        })
+
+        employeeCheckedItems.change(function () {
+            var isCheckboxActiveAll = $('input[name="employeeIds[]"]:checked').length === employeeCheckedItems.length
+            employeeCheckedAll.prop('checked', isCheckboxActiveAll)
+            renderBtnSubmitAllCheked()
+        })
+
+        // re-render submit button all checked
+        function renderBtnSubmitAllCheked() {
+            if (($('input[name="employeeIds[]"]:checked').length) > 0) {
+                btnSubmitAllChecked.removeClass('disabled')
+            } else {
+                btnSubmitAllChecked.addClass('disabled')
+            }
+        }
+
+        btnSubmitAllChecked.on('submit', function (e) {
+            const isSubmitable = !$(this).hasClass('disabled')
+            if (!isSubmitable) {
+                e.preventDefault()
+            }
+        })
+
+
+    })
+</script>

@@ -1,0 +1,31 @@
+<div class="signup-container">
+    <h1>Sign Up</h1>
+    <form class="signup-form" action="/auth/signup" method="post">
+        <div class="form-group">
+            <label for="firstname">First Name:</label>
+            <input type="text" id="firstname" name="firstname" required>
+        </div>
+        <div class="form-group">
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" name="surname" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="role">User Role:</label>
+            <select id="role" name="role">
+                <option value="viewer" selected>Viewer</option>
+                <option value="editor">Editor</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+        <button type="submit" class="button">Sign Up</button>
+    </form>
+        <p class="switch-link">Already have an account? <a href="/auth/page-signin">Sign in here</a></p>
+</div>

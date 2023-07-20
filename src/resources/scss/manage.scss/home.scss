@@ -1,0 +1,79 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+
+}
+
+table td.actions {
+    width: 200px;
+}
+
+table th.actions {
+    text-align: center;
+}
+
+table td:last-child {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.update-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-action-container {
+    margin: 20px;
+    display: flex;
+    flex-direction: row; /* Hiển thị các phần tử trên cùng một hàng */
+    align-items: center;
+  }
+
+  .form-action-container label {
+    margin-right: 10px; /* Khoảng cách giữa label và select */
+  }
+
+  .form-action-container select,
+  .form-action-container button {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .form-action-container button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+  }

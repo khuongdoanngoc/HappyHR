@@ -1,0 +1,23 @@
+<div class="signup-container">
+    <h1>Sign In</h1>
+    {{#if error}}
+    <div class="error-message">
+        {{error}}
+    </div>
+    {{/if}}
+
+    <!-- Form đăng nhập -->
+    <form class="signup-form" action="/auth/signin" method="post">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="button">Sign In</button>
+
+    </form>
+        <p class="switch-link">Don't have an account? <a href="/auth/page-signup">Sign up now</a></p>
+</div>
