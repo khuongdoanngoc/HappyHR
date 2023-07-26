@@ -17,13 +17,25 @@ class ManageControllers {
         }
 
 
+        // async function getUsername() {
+        //     try {
+                
+        //     } catch (error) {
+                
+        //     }
+        // }
+
+        const user = await User.findById(req.user.sub._id)
+                            .select('surname firstname')
+                            .exec()
+        const username = { firstname: user.firstname, surname: user.surname }
+
         await Promise.all([employeeQuery, Employee.countDocumentsDeleted()])
             .then(([employees, countDeleted]) => {
-                const userId = req.session.passport.user.userId
-                const user = User.findById(userId)
                 res.render('admin/manage', {
                     countDeleted,
                     employees: mutipleMongooseToObject(employees),
+                    username,
                     error: req.flash('error')
                 })
             })
@@ -51,7 +63,7 @@ class ManageControllers {
                 res.render('admin/edit', {
                     employee: mongooseToObject(employee)
                 })
-            })
+            }) 
     }
 
     // [PUT] /:id/update

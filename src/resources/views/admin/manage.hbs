@@ -46,8 +46,7 @@
             <select id="action" name="action" required>
                 <option value="delete">Delete</option>
             </select>
-            <button type="submit"
-                class="btn btn-primary btn-sm btn-submit-all-checked disabled">Submit</button>
+            <button type="submit" class="btn btn-primary btn-sm btn-submit-all-checked disabled">Submit</button>
         </div>
         <tbody>
             {{#each employees}}
@@ -115,8 +114,6 @@
         var employeeCheckedAll = $('#checkbox-all')
         var employeeCheckedItems = $('input[name="employeeIds[]"]')
         var btnSubmitAllChecked = $('.btn-submit-all-checked')
-
-        console.log(btnDeleteEmployee)
 
 
         $('#delete-modal').on('show.bs.modal', function (event) {

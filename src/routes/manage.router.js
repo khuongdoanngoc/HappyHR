@@ -1,9 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const manageControllers = require('../app/controllers/ManageControllers')
-
-const checkRole = require('../app/middlewares/checkRoleMiddleware')
+const manageControllers = require('../app/controllers/manage.controllers')
+const checkRole = require('../app/middlewares/checkrole.middleware')
 
 router.get('/', checkRole('read'), manageControllers.listEmployees)
 router.get('/create', checkRole('createEmp'), manageControllers.createEmployee)

@@ -3,12 +3,13 @@ const express = require('express')
 const { engine } = require('express-handlebars')
 require('dotenv').config()
 const path = require('path')
-const route = require('./routes/index')
+const route = require('./routes/route')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
+const cookieParser = require('cookie-parser')
 
-const SortMiddleware = require('./app/middlewares/SortMiddleware')
-const sessionMiddleware = require('./app/middlewares/sessionMiddleware')
+const SortMiddleware = require('./app/middlewares/sort.middleware')
+const sessionMiddleware = require('./app/middlewares/session.middleware')
 
 const jQuery = require('jquery')
 
@@ -29,6 +30,7 @@ app.use(express.urlencoded())
 app.use(express.json())
 app.use(sessionMiddleware)
 app.use(flash())
+app.use(cookieParser(process.env.SESSION_SECRET_KEY))
 
 app.engine('.hbs', engine({
     extname: 'hbs',
@@ -71,3 +73,4 @@ route(app)
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+

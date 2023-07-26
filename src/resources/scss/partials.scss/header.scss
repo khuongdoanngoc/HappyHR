@@ -3,10 +3,22 @@
     height: 30px;
 }
 
+/* Căn lề và vị trí dropdown */
 .dropdown {
     position: relative;
+    display: flex;
+    /* Sử dụng flexbox để đảm bảo "Avatar" và "Name" nằm trên cùng một hàng */
+    align-items: center;
+    /* Căn giữa các phần tử theo chiều dọc */
 }
 
+.name {
+    /* Căn chỉnh kiểu chữ, kích thước, v.v... */
+    margin-left: 10px;
+    /* Để tạo khoảng cách giữa avatar và tên người dùng */
+}
+
+/* Hiển thị nội dung dropdown */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -16,18 +28,20 @@
     z-index: 1;
 }
 
+/* Hiển thị các mục trong dropdown */
 .dropdown-content a {
-    display: block;
+    color: black;
     padding: 12px 16px;
     text-decoration: none;
-    color: #333;
+    display: block;
 }
 
+/* Khi di chuột vào các mục trong dropdown */
 .dropdown-content a:hover {
     background-color: #f1f1f1;
 }
 
-/* Display the dropdown when hovering or clicking on the avatar */
+/* Hiển thị dropdown khi hover vào avatar và tên người dùng */
 .dropdown:hover .dropdown-content {
     display: block;
 }

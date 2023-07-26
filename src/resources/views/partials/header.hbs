@@ -6,17 +6,46 @@
         <div class="tittle">
             <h1>Employees Management</h1>
         </div>
-        <div class="navbar-brand">
-            <li class="dropdown">
+        <div class="dropdown navbar-brand">
+            {{#if username}}
+            <div class=" avatar-username" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="../../../public/img/user.png" alt="avatar" class="avatar-img">
-                <div class="dropdown-content">
-                    <a href="#">Edit Profile</a>
-                    <a href="/manage/trash">Trash</a>
-                    <a href="/#">Sign Out</a>
-                </div>
-            </li>
+                <p class="username-name">{{username.surname}} {{username.firstname}}</p>
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="/manage/trash">Trash</a></li>
+                <li><a id="signoutLink" class="dropdown-item" href="/auth/signout">Sign Out</a></li>
+            </ul>
+            {{/if}}
         </div>
-        <p class="avatar-img"></p>
 
     </div>
 </nav>
+
+<script>
+    const signOutLink = document.getElementById('signoutLink')
+    if (signOutLink) {
+        signOutLink.addEventListener('click', async function (event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>.
+            try {
+                const response = await fetch('/auth/signOut', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+
+                });
+
+                if (response.ok) {
+                    window.location.href = '/auth/page-signin'; 
+                } else {
+                    console.error('Logout failed');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    }
+
+</script>

@@ -126,8 +126,6 @@
 
 
         btnDeleteEmployee.onclick = function (e) {
-            console.log(this)
-            console.log(employeeID)
             deleteForm.action = '/manage/' + employeeID + '/forceDelete?_method=DELETE'
             deleteForm.submit()
         }
