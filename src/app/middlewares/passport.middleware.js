@@ -48,7 +48,7 @@ passport.serializeUser((userModel, done) => {
     // Lưu thông tin người dùng vào session
     const user = {
         userId: userModel._id,
-        role: userModel.role
+        role: userModel.role,
     }
     done(null, user);
 });

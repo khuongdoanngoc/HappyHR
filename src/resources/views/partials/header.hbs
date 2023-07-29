@@ -1,51 +1,100 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="/manage">
-            <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png" alt="" width="30" height="24">
+        <a class="offcanvas-link" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+            aria-controls="offcanvasExample">
+            <img src="../../../public/img/offcanvas.icon.png" width="25" height="25" alt="" srcset="">
         </a>
-        <div class="tittle">
-            <h1>Employees Management</h1>
-        </div>
-        <div class="dropdown navbar-brand">
+        <!-- Logo công ty ở bên trái -->
+        <a class="navbar-brand" href="/" style="margin-left: 20px;">
+            <img src="../../../public/img/hiring.logo.png" alt="Logo" width="35" height="35">
+            <i class="bi bi-title">HappyHR</i>
+        </a>
+
+        <!-- Nội dung bên phải của Navbar -->
+        <div class="navbar-collapse" id="navbarNav">
             {{#if username}}
-            <div class=" avatar-username" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../../../public/img/user.png" alt="avatar" class="avatar-img">
-                <p class="username-name">{{username.surname}} {{username.firstname}}</p>
-            </div>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Edit Profile</a></li>
-                <li><a class="dropdown-item" href="/manage/trash">Trash</a></li>
-                <li><a id="signoutLink" class="dropdown-item" href="/auth/signout">Sign Out</a></li>
+
+            <ul class="navbar-nav ms-auto">
+                <!-- Tin nhắn -->
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="#">
+                        <img src="../../../public/img/message.icon.png" alt="Avatar" width="25" height="25">
+                        <i class="bi bi-chat-dots"></i>
+                    </a>
+                </li>
+                <!-- Thông báo -->
+                <li class="nav-item mx-2">
+                    <a class="nav-link" href="#">
+                        <img src="../../../public/img/notification.icon.png" alt="Avatar" width="25" height="25">
+                        <i class="bi bi-bell"></i>
+                    </a>
+                </li>
+                <!-- Avatar và tên đăng nhập dropdown -->
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="../../../public/img/user.icon.png" alt="Avatar" width="25" height="25">
+                        {{username.surname}} {{username.firstname}}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="/manage/trash">Trash</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a id="signoutLink" class="dropdown-item" href="/auth/signout">Sign out</a></li>
+                    </ul>
+
+                </li>
             </ul>
             {{/if}}
-        </div>
 
+        </div>
     </div>
 </nav>
 
-<script>
-    const signOutLink = document.getElementById('signoutLink')
-    if (signOutLink) {
-        signOutLink.addEventListener('click', async function (event) {
-            event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>.
-            try {
-                const response = await fetch('/auth/signOut', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+{{!-- sidebar --}}
 
-                });
+<div class="offcanvas offcanvas-start" style="width: 250px;" tabindex="-1" id="offcanvasExample"
+    aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Work Space</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <hr>
+    <div class="offcanvas-body">
+        <a class="link-from-offcanvas" href="/">
+            <div class="task-box">
+                <img src="../../../public/img/home.png" alt="Icon 2">
+                <p>Home</p>
+            </div>
+        </a>
+        <a class="link-from-offcanvas" href="/manage">
+            <div class="task-box">
+                <img src="../../../public/img/management.png" alt="Icon 1">
+                <p>Employees</p>
+            </div>
+        </a>
+        <a class="link-from-offcanvas" href="">
+            <div class="task-box">
+                <img src="../../../public/img/clock.icon.png" alt="Icon 2">
+                <p>Timekeeping</p>
+            </div>
+        </a>
+        <a class="link-from-offcanvas" href="/">
+            <div class="task-box">
+                <img src="../../../public/img/project.png" alt="Icon 2">
+                <p>Project</p>
+            </div>
+        </a>
+        <a class="link-from-offcanvas" href="/">
+            <div class="task-box">
+                <img src="../../../public/img/salary.png" alt="Icon 2">
+                <p>Payroll</p>
+            </div>
+        </a>
+    </div>
+</div>
 
-                if (response.ok) {
-                    window.location.href = '/auth/page-signin'; 
-                } else {
-                    console.error('Logout failed');
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        });
-    }
-
-</script>
+<script src="../../../public/js/signout.js"></script>

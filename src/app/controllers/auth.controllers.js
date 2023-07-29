@@ -14,8 +14,15 @@ class AuthController {
         newUser.authType = 'local'
         await newUser.save()
             .then((newUserValue) => {
-                const token = encodedToken(newUserValue._id, newUserValue.role)
+                const tokenInfo = {
+                    _id: newUserValue._id,
+                    role: newUserValue.role,
+                    firstname: newUserValue.firstname,
+                    surname: newUserValue.surname
+                }
+                const token = encodedToken(tokenInfo)
                 res.cookie('token', token, {httpOnly: true, maxAge: 1000*60*60})
+                res.redirect('/')
             })
             .catch(next)
     }
@@ -28,7 +35,7 @@ class AuthController {
     // [POST] /auth/signin
     async signIn(req, res, next) {
         await User.findOne({ email: req.body.email })
-            .select('_id role')
+            .select('_id role firstname surname')
             .exec((err, result) => {
                 if (err) {
                     res.status(500).json(err)

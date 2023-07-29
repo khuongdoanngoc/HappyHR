@@ -13,8 +13,17 @@
 
 .name {
   /* Căn chỉnh kiểu chữ, kích thước, v.v... */
-  margin-left: 10px;
+  margin-left: 15px;
+  font-size: 10;
   /* Để tạo khoảng cách giữa avatar và tên người dùng */ }
+
+.avt-name {
+  right: 100px;
+  width: 60px;
+  height: 60px; }
+
+.avatar-username {
+  width: 200px; }
 
 /* Hiển thị nội dung dropdown */
 .dropdown-content {
@@ -39,6 +48,44 @@
 /* Hiển thị dropdown khi hover vào avatar và tên người dùng */
 .dropdown:hover .dropdown-content {
   display: block; }
+
+.navbar-collapse {
+  justify-content: flex-end; }
+
+.navbar-toggler {
+  border: none;
+  background-color: transparent; }
+
+.task-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+
+.task-box {
+  width: 200;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px; }
+
+.task-box img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  vertical-align: middle; }
+
+.task-box p {
+  margin: 0;
+  display: inline;
+  vertical-align: middle; }
+
+.link-from-offcanvas {
+  color: black;
+  text-decoration: none; }
+
+.tittle-work-space {
+  font-size: 5; }
 
 .signup-container {
   max-width: 600px;
@@ -153,6 +200,12 @@ table td:last-child {
   border-radius: 4px;
   cursor: pointer;
   margin-left: 10px; }
+
+.img-link img {
+  width: 25px;
+  height: 25px;
+  object-fit: cover;
+  margin-left: 15px; }
 
 .form-create-container {
   width: 400px;

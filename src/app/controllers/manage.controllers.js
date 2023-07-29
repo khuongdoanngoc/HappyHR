@@ -16,23 +16,11 @@ class ManageControllers {
             })
         }
 
-
-        // async function getUsername() {
-        //     try {
-                
-        //     } catch (error) {
-                
-        //     }
-        // }
-
-        const user = await User.findById(req.user.sub._id)
-                            .select('surname firstname')
-                            .exec()
-        const username = { firstname: user.firstname, surname: user.surname }
+        const username = { firstname: req.user.sub.firstname, surname: req.user.sub.surname }
 
         await Promise.all([employeeQuery, Employee.countDocumentsDeleted()])
             .then(([employees, countDeleted]) => {
-                res.render('admin/manage', {
+                res.render('management/manage', {
                     countDeleted,
                     employees: mutipleMongooseToObject(employees),
                     username,
@@ -44,7 +32,10 @@ class ManageControllers {
 
     // [GET] /create
     async createEmployee(req, res, next) {
-        await res.render('admin/create')
+        const username = { firstname: req.user.sub.firstname, surname: req.user.sub.surname }
+        await res.render('management/create', {
+            username
+        })
     }
 
     // [POST] /store
@@ -58,12 +49,14 @@ class ManageControllers {
     // [GET] /:id/edit
     async editEmployee(req, res, next) {
 
+        const username = { firstname: req.user.sub.firstname, surname: req.user.sub.surname }
         await Employee.findById(req.params.id)
             .then(employee => {
-                res.render('admin/edit', {
-                    employee: mongooseToObject(employee)
+                res.render('management/edit', {
+                    employee: mongooseToObject(employee),
+                    username
                 })
-            }) 
+            })
     }
 
     // [PUT] /:id/update
@@ -96,10 +89,11 @@ class ManageControllers {
             })
         }
 
+        const username = { firstname: req.user.sub.firstname, surname: req.user.sub.surname }
         await employeeQuery
             .then(employees => {
                 employees = employees.map(employees => employees.toObject())
-                res.render('admin/trash', { employees })
+                res.render('management/trash', { employees, username })
                 // res.json(employees)
             })
             .catch(error => next(error))

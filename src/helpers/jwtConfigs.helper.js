@@ -1,10 +1,9 @@
 const jwt = require('jsonwebtoken')
 
-const encodedToken = (userId, role) => {
+const encodedToken = (tokenInfo) => {
     return jwt.sign({
         iss: 'Khang Nguyen Thuc',
-        sub: userId,
-        role: role,
+        sub: tokenInfo
     }, process.env.JWT_SECRET_KEY)
 }
 
