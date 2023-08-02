@@ -133,6 +133,13 @@ select {
 .switch-link {
   text-align: center; }
 
+.option-signin-icon img {
+  width: 60px;
+  height: 60px; }
+
+.icon-signin {
+  gap: 20px; }
+
 body {
   font-family: Arial, sans-serif; }
 

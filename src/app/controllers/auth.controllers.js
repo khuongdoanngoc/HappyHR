@@ -21,7 +21,7 @@ class AuthController {
                     surname: newUserValue.surname
                 }
                 const token = encodedToken(tokenInfo)
-                res.cookie('token', token, {httpOnly: true, maxAge: 1000*60*60})
+                res.cookie('token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 })
                 res.redirect('/')
             })
             .catch(next)
@@ -40,10 +40,10 @@ class AuthController {
                 if (err) {
                     res.status(500).json(err)
                 } else if (!result) {
-                    res.redirect('/auth/page-signin', { error: req.flash('error')})
+                    res.redirect('/auth/page-signin', { error: req.flash('error') })
                 } else {
                     const token = encodedToken(result)
-                    res.cookie('token', token, { htppOnly: true, maxAge: 1000 * 60 * 60})
+                    res.cookie('token', token, { htppOnly: true, maxAge: 1000 * 60 * 60 })
                     res.redirect('/manage')
                 }
             })
@@ -52,6 +52,20 @@ class AuthController {
     async signOut(req, res, next) {
         await res.clearCookie('token')
         await res.redirect('/auth/page-signin')
+    }
+
+    // [POST] /auth/google
+    async google(req, res, next) {
+        const user = await User.findById(req.session.passport.user.userId)
+            .select('_id role firstname surname')
+            .exec()
+        if (!user) {
+            res.redirect('/auth/page-signin', { error: req.flash('error') })
+        } else {
+            const token = encodedToken(user)
+            res.cookie('token', token, { htppOnly: true, maxAge: 1000 * 60 * 60 })
+            res.redirect('/manage')
+        }
     }
 
     // [GET] /auth/secret
