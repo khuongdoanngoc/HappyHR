@@ -23,11 +23,14 @@ router.post('/signin', passport.authenticate('local', {
 router.post('/signout', authControllers.signOut)
 
 // signin with google
-
-router.get('/google', passport.authenticate('google', { scope: [ 'email', 'profile']}))
+router.get('/google', passport.authenticate('google', { scope: ['email', 'profile'] }))
 router.get('/google/callback', passport.authenticate('google', {
     failureRedirect: '/auth/page-signin'
 }), authControllers.google)
+
+// signin with facebook
+router.get('/facebook', passport.authenticate('facebook'))
+router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/auth/page-signin' }), authControllers.facebook)
 
 router.get('/secret', passport.authenticate('jwt', { failureRedirect: 'page-signin', failureFlash: true }), authControllers.secret)
 

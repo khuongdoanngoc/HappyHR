@@ -54,7 +54,7 @@ class AuthController {
         await res.redirect('/auth/page-signin')
     }
 
-    // [POST] /auth/google
+    // [GET] /auth/google
     async google(req, res, next) {
         const user = await User.findById(req.session.passport.user.userId)
             .select('_id role firstname surname')
@@ -64,7 +64,21 @@ class AuthController {
         } else {
             const token = encodedToken(user)
             res.cookie('token', token, { htppOnly: true, maxAge: 1000 * 60 * 60 })
-            res.redirect('/manage')
+            res.redirect('/')
+        }
+    }
+
+    // [GET] auth/facebook
+    async facebook(req, res, next) {
+        const user = await User.findById(req.session.passport.user.userId)
+            .select('_id role firstname surname')
+            .exec()
+        if (!user) {
+            res.redirect('/auth/page-signin', { error: req.flash('error') })
+        } else {
+            const token = encodedToken(user)
+            res.cookie('token', token, { htppOnly: true, maxAge: 1000 * 60 * 60 })
+            res.redirect('/')
         }
     }
 
