@@ -97,7 +97,6 @@ passport.use(new FacebookStrategy(facebookOptions, async function (accessToken, 
             authType: 'facebook',
             role: 'editor'
         })
-        console.log('profile: ', profile)
         await newUser.save()
         cb(null, newUser)
     } catch (error) {

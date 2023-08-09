@@ -1,8 +1,20 @@
+:root {
+    --main-color: #c4f7c4;
+}
+
+body {
+    font-family: monospace
+}
+
 @import "./partials.scss/header.scss";
 
 // auth
-@import "./auth.scss//signup&in.scss";
+@import "./auth.scss/signup&in.scss";
 
-// manage
-@import "./manage.scss//home.scss";
-@import "./manage.scss/create.scss";  
+// dashboard
+@import "./dashboard/dashboard.scss";
+@import "./dashboard/chatbox.scss";
+
+// manage 
+@import "./manage.scss/home.scss"; 
+@import "./manage.scss/create.scss";

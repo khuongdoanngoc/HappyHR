@@ -2,9 +2,9 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
 const roles = {
-    admin: ['read', 'createEmp', 'update', 'delete', 'restore', 'forceDelete'],
-    editor: ['read', 'createEmp', 'update', 'restore', 'delete'],
-    viewer: ['read']
+    admin: ['adminPermission', 'hrPermission', 'empPermission'],
+    editor: ['hrPermission', 'empPermission'],
+    viewer: ['empPermission']
 }
 
 function checkRole(method) {

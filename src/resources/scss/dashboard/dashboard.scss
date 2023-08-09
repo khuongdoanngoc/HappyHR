@@ -1,0 +1,21 @@
+.main-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1200px;
+    margin: 0 auto;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.main-dashboard div {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    flex-basis: calc(50% - 30px);
+    height: 330px;
+    background-color: #c4f7c4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 25px;
+}

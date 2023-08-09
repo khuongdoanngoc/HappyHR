@@ -1,24 +1,33 @@
+require('dotenv').config()
 
 const express = require('express')
 const { engine } = require('express-handlebars')
-require('dotenv').config()
+const http = require('http')
 const path = require('path')
 const route = require('./routes/route')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
 
+
 const SortMiddleware = require('./app/middlewares/sort.middleware')
 const sessionMiddleware = require('./app/middlewares/session.middleware')
+
 
 const jQuery = require('jquery')
 
 const app = express()
 const port = process.env.PORT || 3000
 
+const server = http.createServer(app)
+
 // connect to DB
 const db = require('./config/db/index')
 db.connect()
+
+// connect to socketio
+const socketIO = require('./config/socket.io/socket.io')
+socketIO(server)
 
 // aplly middleware
 app.use(SortMiddleware)
@@ -70,7 +79,7 @@ app.set('views', path.join(__dirname, './resources/views'))
 
 route(app)
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
