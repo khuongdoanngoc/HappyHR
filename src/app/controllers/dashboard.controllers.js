@@ -16,7 +16,7 @@ class DashboardController {
 
     async sendNotify (req, res, next) {
         const username = getUserName(req)
-        await res.json(req.body)
+
     }
 
 }
