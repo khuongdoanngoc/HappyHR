@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Message = require('../models/message')
 const getUserName = require('../../helpers/getUserInfor.helper')
 
 class DashboardController {

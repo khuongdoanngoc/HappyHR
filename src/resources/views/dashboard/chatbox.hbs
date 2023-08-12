@@ -1,48 +1,77 @@
-<div class="chat-container">
+<div class="chat-container" style="margin-top: 20px">
     <div class="chat-box">
         Company Chat
     </div>
-        <form id="chat-form" action="">
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Chat</span>
-                <input id="chat-input" type="text" class="form-control" aria-label="Sizing example input"
-                    aria-describedby="inputGroup-sizing-sm">
-                <button class="btn chat-btn-send" style="background-color: var(--main-color);">Send</button>
-            </div>
-        </form>
-        {{#if username}}
-        <div class="chat-message" data-name="{{username.surname}}">
+    <form id="chat-form" action="">
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Chat</span>
+            <input id="chat-input" type="text" data-name="{{username.surname}}" data-id="{{username.id}}"
+                class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+            <button class="btn chat-btn-send" style="background-color: var(--main-color);">Send</button>
+        </div>
+    </form>
+    <div class="messages-container">
+        <div class="chat-message">
 
         </div>
-        {{/if}}
+    </div>
 </div>
 
 <script src="socket.io/socket.io.js"></script>
 <script>
+
     var socket = io()
     var form = document.getElementById('chat-form')
     var input = document.getElementById('chat-input')
 
     form.addEventListener('submit', function (e) {
         e.preventDefault()
+        const name = input.getAttribute('data-name')
+        const id = input.getAttribute('data-id')
         if (input.value) {
-            socket.emit('on-chat', input.value)
+            const data = {
+                userId: id,
+                userName: name,
+                content: input.value
+            }
+            socket.emit('newMessage', data)
             input.value = ''
         }
     })
 
-    socket.on('user-chat', function (msg) {
+    socket.emit('initialMessages', {})
+    socket.on('initialMessages', function (messages) {
+        for (let i = 0; i < messages.length; i++) {
+            const messageContainer = document.createElement('div')
+            const message = document.querySelector('.chat-message')
+            const imgElement = document.createElement('img')
+            imgElement.src = '../../../public/img/user.icon.png'
+            const pElement = document.createElement('p')
+            messageContainer.className = 'message'
+            const name = messages[i].userName
+            const content = messages[i].content
+            pElement.textContent = `${name}: ${content}`
+            messageContainer.appendChild(imgElement)
+            messageContainer.appendChild(pElement)
+            message.appendChild(messageContainer)
+        }
+    })
+
+    socket.on('newMessage', function (msg) {
         const messageContainer = document.createElement('div')
         const message = document.querySelector('.chat-message')
         const imgElement = document.createElement('img')
         imgElement.src = '../../../public/img/user.icon.png'
         const pElement = document.createElement('p')
         messageContainer.className = 'message'
-        const name = message.getAttribute('data-name')
-        pElement.textContent = `${name}: ${msg}`
+        const name = msg.userName
+        const content = msg.content
+        pElement.textContent = `${name}: ${content}`
         messageContainer.appendChild(imgElement)
         messageContainer.appendChild(pElement)
         message.appendChild(messageContainer)
     })
+
+
 
 </script>
