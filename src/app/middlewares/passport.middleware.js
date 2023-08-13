@@ -82,7 +82,7 @@ passport.use(new GoogleStrategy(googleOptions, async function (request, accessTo
 const facebookOptions = {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback",
+    callbackURL: "https://happyhr.onrender.com/auth/facebook/callback",
     profileFields: ['id', 'displayName', 'email']
 }
 passport.use(new FacebookStrategy(facebookOptions, async function (accessToken, refreshToken, profile, cb) {
