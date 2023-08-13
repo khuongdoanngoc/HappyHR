@@ -53,7 +53,7 @@ passport.use(new LocalStrategy(localOptions, async (email, password, done) => {
 const googleOptions = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://happyhr.onrender.com/auth/google/callback',
+    callbackURL: process.env.GOOGLE_URL_CALLBACK,
     passReqToCallback: true
 }
 passport.use(new GoogleStrategy(googleOptions, async function (request, accessToken, refreshToken, profile, done) {
@@ -82,7 +82,7 @@ passport.use(new GoogleStrategy(googleOptions, async function (request, accessTo
 const facebookOptions = {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "https://happyhr.onrender.com/auth/facebook/callback",
+    callbackURL: process.env.FACEBOOK_URL_CALLBACK,
     profileFields: ['id', 'displayName', 'email']
 }
 passport.use(new FacebookStrategy(facebookOptions, async function (accessToken, refreshToken, profile, cb) {
