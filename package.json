@@ -46,5 +46,8 @@
     "url": "https://github.com/khuongdoanngoc/EmpManagement/issues"
   },
   "homepage": "https://github.com/khuongdoanngoc/EmpManagement#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
