@@ -6,9 +6,8 @@ module.exports = socketIO = function (server) {
     io.on('connection', async (socket) => {
 
         // get initial message from database
-        const messages = await Message.find().sort('-createdAt')
         socket.on('initialMessages', async function (data) {
-            const messages = await Message.find({})
+            const messages = await Message.find().sort('-createdAt')
             io.emit('initialMessages', messages)
         })
 

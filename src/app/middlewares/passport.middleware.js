@@ -49,11 +49,11 @@ passport.use(new LocalStrategy(localOptions, async (email, password, done) => {
     }
 }))
 
-// passport google plus token config
+// passport google token config
 const googleOptions = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/google/callback',
+    callbackURL: 'https://happyhr.onrender.com/auth/google/callback',
     passReqToCallback: true
 }
 passport.use(new GoogleStrategy(googleOptions, async function (request, accessToken, refreshToken, profile, done) {
@@ -74,6 +74,7 @@ passport.use(new GoogleStrategy(googleOptions, async function (request, accessTo
         await newUser.save()
         done(null, newUser)
     } catch (error) {
+        console.log('error: ', error)
         return done(error, null)
     }
 }))
