@@ -9,12 +9,18 @@ const Schema = mongoose.Schema
 
 const Employee = new Schema({
     _id: { type: Number },
-    name: { type: String },
-    identityCard: { type: String },
+    name: { type: String, required: true },
+    identityCard: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     birth: { type: String },
-    salary: { type: Number }
+    gender: {
+        type: String,
+        enum: ['male', 'female', 'different']
+    },
+    department: { type: String },
+    salary: { type: Number },
+    address: { type: String },
 }, {
-    _id: false,
     timestamps: true
 })
 

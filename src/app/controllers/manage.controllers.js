@@ -30,20 +30,15 @@ class ManageControllers {
             .catch(next)
     }
 
-    // [GET] /create
-    async createEmployee(req, res, next) {
-        const username = { firstname: req.user.sub.firstname, surname: req.user.sub.surname }
-        await res.render('management/create', {
-            username
-        })
-    }
-
-    // [POST] /store
+    // [POST] /postcreateemployee
     async postCreateEmployee(req, res, next) {
         const employee = new Employee(req.body)
         await employee.save()
-            .then(() => res.redirect('/manage'))
-            .catch(error => { })
+            .then(newEmployee => {
+                const idNewEmployee = newEmployee._id
+                res.redirect(`/manage/${idNewEmployee}/edit`)
+            })
+            .catch(error => { res.json(error) })
     }
 
     // [GET] /:id/edit

@@ -24,30 +24,14 @@
                     {{{sortable 'name' _sort}}}
                 </th>
                 <th>
-                    Identity Card
+                    Contact
                     <i class="fa-solid fa-circle-sort"></i>
-                    {{{sortable 'identityCard' _sort}}}
-                </th>
-                <th>
-                    Birth
-                    <i class="fa-solid fa-circle-sort"></i>
-                    {{{sortable 'birth' _sort}}}
-                </th>
-                <th>
-                    Salary
-                    <i class="fa-solid fa-circle-sort"></i>
-                    {{{sortable 'salary' _sort}}}
+                    {{{sortable 'email' _sort}}}
                 </th>
                 <th class="actions">Actions</th>
             </tr>
         </thead>
-        {{!-- <div class="form-action-container">
-            <label for="action">Action:</label>
-            <select id="action" name="action" required>
-                <option value="delete">Delete</option>
-            </select>
-            <button type="submit" class="btn btn-primary btn-sm btn-submit-all-checked disabled">Submit</button>
-        </div> --}}
+
 
         <div class="container mt-4">
             <div class="row">
@@ -70,8 +54,9 @@
                     </select>
                     <button type="submit" class="btn btn-primary btn-sm btn-submit-all-checked disabled">Submit</button>
 
-                    <a href="/manage/create" class="img-link"><img src="../../../public/img/add-emp.icon.png"
-                            alt=""></a>
+                    <div class="img-link" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <img src="../../../public/img/add-emp.icon.png" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -85,9 +70,7 @@
                 </td>
                 <td>{{this._id}}</td>
                 <td>{{this.name}}</td>
-                <td>{{this.identityCard}}</td>
-                <td>{{this.birth}}</td>
-                <td>${{this.salary}}</td>
+                <td>{{this.email}}</td>
                 <td class="actions">
                     <div>
                         <a href="/manage/{{this._id}}/edit" class="update-btn">Update</a>
@@ -98,8 +81,7 @@
             </tr>
             {{else}}
             <tr>
-                <td colspan="5" class="text-center">You haven't post any employees yet! <a href="/manage/create">Create
-                        Now</a>
+                <td colspan="5" class="text-center">You haven't post any employees yet!
                 </td>
             </tr>
             {{/each}}
@@ -130,5 +112,41 @@
 
 {{!-- delete form --}}
 <form name="delete-employee-form" method="POST"></form>
+
+
+{{!-- modal create emp --}}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" action="/manage/postCreateEmp">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-create-group">
+                        <label for="name"><span class="text-danger">* </span>Name:</label>
+                        <input name="name" id="name" required>
+                    </div>
+                    <br>
+                    <div class="form-create-group">
+                        <label for="email"><span class="text-danger">* </span>Email:</label>
+                        <input name="email" id="email" required>
+                    </div>
+                    <br>
+                    <div class="form-create-group">
+                        <label for="identityCard"><span class="text-danger">* </span>Identity card:</label>
+                        <input name="identityCard" id="identityCard" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Add Employee</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script src="../../../public/js/manage.js"></script>

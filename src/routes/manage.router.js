@@ -5,7 +5,6 @@ const manageControllers = require('../app/controllers/manage.controllers')
 const checkRole = require('../app/middlewares/checkrole.middleware')
 
 router.get('/', checkRole('empPermission'), manageControllers.listEmployees)
-router.get('/create', checkRole('hrPermission'), manageControllers.createEmployee)
 router.post('/postCreateEmp', checkRole('hrPermission'), manageControllers.postCreateEmployee)
 router.post('/handleFormActions', checkRole('hrPermission'), manageControllers.handleFormActions)
 router.get('/:id/edit', checkRole('hrPermission'), manageControllers.editEmployee)
