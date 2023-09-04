@@ -17,7 +17,11 @@ class DashboardController {
 
     async sendNotify (req, res, next) {
         const username = getUserName(req)
+    }
 
+    async timeKeeping (req, res, next) {
+        const username = getUserName(req)
+        await res.render('dashboard/timekeeping', { username })
     }
 
 }

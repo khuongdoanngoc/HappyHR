@@ -1,6 +1,10 @@
 const User = require('../models/user')
 const encodedToken = require('../../helpers/jwtConfigs.helper')
+const { createClient } = require('redis')
+const redisClient = createClient()
 
+redisClient.on('error', err => console.log('err redis: ', err))
+redisClient.connect()
 class AuthController {
 
     // [GET] /auth/page-signup
@@ -51,6 +55,7 @@ class AuthController {
 
     async signOut(req, res, next) {
         await res.clearCookie('token')
+        await redisClient.del('token')
         await res.redirect('/auth/page-signin')
     }
 

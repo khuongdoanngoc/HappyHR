@@ -9,11 +9,12 @@ body {
 @import "./partials.scss/header.scss";
 
 // auth
-@import "./auth.scss/signup&in.scss";
+@import "./auth.scss/signup&in.scss"; 
 
 // dashboard
 @import "./dashboard/dashboard.scss";
 @import "./dashboard/chatbox.scss";
+@import "./dashboard/timekeeping.scss";
 
 // manage 
 @import "./manage.scss/home.scss"; 
