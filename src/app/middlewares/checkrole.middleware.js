@@ -18,9 +18,10 @@ redisClient.connect()
 function checkRole(method) {
     return async function (req, res, next) {
         const tokenFromRedis = await redisClient.get('token')
-        if (tokenFromRedis != null) {
+        const tokenParsed = JSON.parse(tokenFromRedis)
+        if (tokenParsed != null) {
             // console.log('CACHE HIT')
-            jwt.verify(JSON.parse(tokenFromRedis), process.env.JWT_SECRET_KEY, (err, decoded) => {
+            jwt.verify(JSON.parse(tokenParsed), process.env.JWT_SECRET_KEY, (err, decoded) => {
                 if (err) {
                     return res.status(403).redirect('/auth/page-signin');
                 } else {
