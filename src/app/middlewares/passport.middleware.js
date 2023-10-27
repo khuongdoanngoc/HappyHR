@@ -53,7 +53,7 @@ passport.use(new LocalStrategy(localOptions, async (email, password, done) => {
 const googleOptions = {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_URL_CALLBACK,
+    callbackURL: process.env.GOOGLE_URL_CALLBACK_PUBLIC,
     passReqToCallback: true
 }
 passport.use(new GoogleStrategy(googleOptions, async function (request, accessToken, refreshToken, profile, done) {
@@ -82,7 +82,7 @@ passport.use(new GoogleStrategy(googleOptions, async function (request, accessTo
 const facebookOptions = {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: process.env.FACEBOOK_URL_CALLBACK,
+    callbackURL: process.env.FACEBOOK_URL_CALLBACK_PUBLIC,
     profileFields: ['id', 'displayName', 'email']
 }
 passport.use(new FacebookStrategy(facebookOptions, async function (accessToken, refreshToken, profile, cb) {
